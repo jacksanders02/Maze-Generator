@@ -1,0 +1,88 @@
+/* Author: Jack Sanders */
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~Custom Properties~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~General Tags~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Set font-family, font-size, and color to default values, to avoid needing to
+specify for everything that isn't a heading
+ */
+* {
+    font-family: Verdana, sans-serif;
+    font-size: 1em;
+    color: var(--main-text-colour);
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin-bottom: .5em;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 1.5em;
+
+    margin: 1em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~Generic Classes~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.hidden {
+    display: none;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~Main Content~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#maze-area {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 90vw;
+    height: 90vw;
+
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+#buttons {
+    width: 90vw;
+
+    margin: 2em auto;
+}
+
+.node {
+    box-sizing: border-box;
+    border: 1px solid transparent; /* Invisible border to avoid messing up sizing */
+}
+
+button {
+    box-sizing: border-box;
+
+    border: none;
+    margin-top: .5em;
+    padding: .5em 2%;
+
+    width: 100%;
+    height: 3em;
+}
+
+label {
+    display: inline-block;
+    margin-top: .5em;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~Footer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~Media Queries~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
