@@ -45,12 +45,6 @@ h3 {
 #maze-area {
     display: flex;
     flex-wrap: wrap;
-
-    width: 90vw;
-    height: 90vw;
-
-    box-sizing: border-box;
-    border: 1px solid black;
     margin: 0 auto;
 }
 
@@ -58,11 +52,6 @@ h3 {
     width: 90vw;
 
     margin: 2em auto;
-}
-
-.node {
-    box-sizing: border-box;
-    border: 1px solid transparent; /* Invisible border to avoid messing up sizing */
 }
 
 button {
