@@ -2,15 +2,40 @@ class Node {
     constructor(x, y, width, height) {
         this.coords = [x, y];
         this.topLeft = [x * width, y * height];
-        console.log(width);
         this.width = width;
         this.height = height;
         this.parent = null;
         this.walls = null; // [TOP, RIGHT, BOTTOM, LEFT]
         this.visited = false;
+
+        this.fill = null;
+    }
+
+    removeWall(direction) {
+        switch (direction) {
+            case "N":
+                this.walls[0] = false;
+                break;
+            case "E":
+                this.walls[1] = false;
+                break;
+            case "S":
+                this.walls[2] = false;
+                break;
+            case "W":
+                this.walls[3] = false;
+                break;
+            default:
+                console.log("Something broke");
+        }
     }
 
     draw() {
+        if (this.fill) {
+            ctx.fillStyle = this.fill;
+            ctx.fillRect(this.topLeft[0], this.topLeft[1], this.width, this.height);
+        }
+
         ctx.beginPath()
 
         // Top
@@ -38,11 +63,6 @@ class Node {
         }
 
         ctx.stroke();
-    }
-
-    colour(col) {
-        ctx.fillStyle = col;
-        ctx.fillRect(this.topLeft[0] + 1, this.topLeft[1] + 1, this.width - 2, this.height - 2);
     }
 
     visit() {

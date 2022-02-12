@@ -9,7 +9,7 @@ const generateButton = document.getElementById("generate-maze");
 const rowNum = 20;
 const colNum = 20;
 
-const directions = [[1, 0, "E"], [0, 1, "S"], [-1, 0, "W"], [0, -1, "N"]];
+const directions = [[1, 0, "EW"], [0, 1, "SN"], [-1, 0, "WE"], [0, -1, "NS"]];
 
 // Create map as an empty array, and populate that with empty arrays
 let map = new Array(colNum);
@@ -21,6 +21,7 @@ for (let i=0; i<map.length; i++) {
 // Resets the map to have no walls
 function clearMaze() {
     console.log("placeholder");
+    generateButton.addEventListener("click", generateMaze, false);
 }
 
 // Check if coordinates are equal (arr1 === arr2 checks references, not content)
@@ -49,63 +50,49 @@ function addCoords(coord1, coord2) {
 
 function redrawCanvas() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
+    console.log("draw");
     for (let column of map) {
         for (let node of column) {
-            node.walls = [true,true, true, true];
             node.draw();
         }
     }
 }
 
-function pickRandomNeighbour(coords) {
-    let currentNode = map[coords[0]][coords[1]];
+function pickRandomNeighbour(currentNode) {
+    // Parent will be null for the start node and only the start node.
+    if (!currentNode.parent && currentNode.visited) {
+        return;
+    }
 
     currentNode.visit();
 
     let validDirections = [];
     for (let direction of directions) {
-        if (!invalidCoords(addCoords(direction, coords))) {
+        let newCoords = addCoords(direction, currentNode.coords)
+        if (!invalidCoords(newCoords) && !map[newCoords[0]][newCoords[1]].visited) {
             validDirections.push(direction);
         }
     }
 
-    let direction = randChoice(validDirections);
-    let neighbour = addCoords(direction, coords)
-    neighbour = map[neighbour[0]][neighbour[1]];
-
-    console.log(currentNode.coords);
-    console.log(neighbour.coords);
-
-    switch (direction[2]) {
-        case "N":
-            currentNode.walls[0] = false;
-            neighbour.walls[2] = false;
-            break;
-        case "E":
-            currentNode.walls[1] = false;
-            neighbour.walls[3] = false;
-            break;
-        case "S":
-            currentNode.walls[2] = false;
-            neighbour.walls[0] = false;
-            break;
-        case "W":
-            currentNode.walls[3] = false;
-            neighbour.walls[1] = false;
-            break;
-        default:
-            console.log("Something broke");
+    if (validDirections.length === 0) {
+        pickRandomNeighbour(currentNode.parent);
+        return;
     }
 
-    console.log(currentNode.walls);
-    console.log(neighbour.walls);
+    let direction = randChoice(validDirections);
+    let neighbour = addCoords(direction, currentNode.coords);
+    neighbour = map[neighbour[0]][neighbour[1]];
 
-    redrawCanvas();
+    neighbour.parent = currentNode;
+
+    currentNode.removeWall(direction[2][0]);
+    neighbour.removeWall(direction[2][1]);
+
+    pickRandomNeighbour(neighbour);
 }
 
 function generateMaze() {
-    generateButton.removeEventListener("click", generateMaze);
+    //generateButton.removeEventListener("click", generateMaze);
 
     // Initialise map with empty nodes
     for (let i=0; i<map.length; i++) {
@@ -123,7 +110,11 @@ function generateMaze() {
 
     let startCoords = [randInt(0, colNum), randInt(0, rowNum)];
 
-    pickRandomNeighbour(startCoords);
+    let startNode = map[startCoords[0]][startCoords[1]]
+
+    pickRandomNeighbour(startNode);
+
+    redrawCanvas();
 }
 
 generateButton.addEventListener("click", generateMaze, false);
