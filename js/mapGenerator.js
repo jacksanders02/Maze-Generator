@@ -44,13 +44,14 @@ function randChoice(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Adds two coordinates together, and returns the result
 function addCoords(coord1, coord2) {
     return [coord1[0] + coord2[0], coord1[1] + coord2[1]];
 }
 
+// Clears the canvas and redraws all nodes
 function redrawCanvas() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    console.log("draw");
     for (let column of map) {
         for (let node of column) {
             node.draw();
@@ -58,6 +59,7 @@ function redrawCanvas() {
     }
 }
 
+// Main function of the maze generator.
 function pickRandomNeighbour(currentNode) {
     // Parent will be null for the start node and only the start node.
     if (!currentNode.parent && currentNode.visited) {
